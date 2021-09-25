@@ -1,0 +1,15 @@
+.base-page{
+background-color:black;
+}
+
+.header{
+font-size:30px;
+}
+
+#code-header{
+color:white;
+}
+
+#output-header{
+color:white;
+}
