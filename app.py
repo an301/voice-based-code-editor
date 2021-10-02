@@ -63,7 +63,6 @@ def replace_str_with_char(key_word,symbol,spoken_txt):
         spoken_txt = symbol.join(spoken_txt)
     return(spoken_txt)
 
-stop = False
 
 def audioTranscript():
     r = sr.Recognizer()
