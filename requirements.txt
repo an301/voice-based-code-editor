@@ -1,4 +1,5 @@
 Flask
 SpeechRecognition
 gunicorn
-PyAudio
+python-pyaudio
+portaudio19-dev
