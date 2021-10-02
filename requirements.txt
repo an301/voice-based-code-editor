@@ -1,4 +1,5 @@
 Flask
 SpeechRecognition
 gunicorn
-pyaudio
+portaudio
+pyaudio==0.2.9
