@@ -64,38 +64,92 @@ def replace_str_with_char(key_word,symbol,spoken_txt):
     return(spoken_txt)
 
 
-def audioTranscript():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)
-        audio_data = r.listen(source)
-    try:
-        text = r.recognize_google(audio_data)
-        return(text)
-    except Exception as e:
-        return('could not recognize audio')
+# def audioTranscript():
+#     r = sr.Recognizer()
+#     with sr.Microphone() as source:
+#         r.adjust_for_ambient_noise(source)
+#         audio_data = r.listen(source)
+#     try:
+#         text = r.recognize_google(audio_data)
+#         return(text)
+#     except Exception as e:
+#         return('could not recognize audio')
 
 @app.route('/', methods=['GET','POST'])
 def index():
     spoken_txt=""
     return render_template('test.html', spoken_txt=spoken_txt)
 
-@app.route("/audioprocessing", methods=['GET','POST'])
-def audioprocessing():
-    if request.method=='GET':
+# @app.route("/audioprocessing", methods=['GET','POST'])
+# def audioprocessing():
+#     if request.method=='GET':
+#
+#         spoken_txt=audioTranscript()
+#         spoken_txt=spoken_txt.lower()
+#         for loop in symbols_text:
+#                 if loop in spoken_txt:
+#                     spoken_txt=replace_str_with_char(loop,symbols_text[loop],spoken_txt)
+#         return render_template('test.html', spoken_txt=spoken_txt)
+#     else:
+#         code_fragment=request.form["code"]
+#         output = subprocess.check_output(["python","-c",code_fragment])
+#         output = output.decode()
+#         output = output.strip()
+#         return render_template('output.html', output=output, code_fragment=code_fragment)
 
-        spoken_txt=audioTranscript()
-        spoken_txt=spoken_txt.lower()
-        for loop in symbols_text:
-                if loop in spoken_txt:
-                    spoken_txt=replace_str_with_char(loop,symbols_text[loop],spoken_txt)
-        return render_template('test.html', spoken_txt=spoken_txt)
+# @app.route("/test_upload_audio", methods=["GET","POST"])
+# def test_upload_audio():
+#     if request.method=="GET":
+#         return render_template('upload_audio_recording.html')
+#     else:
+#         audio_file=request.files['uploaded_file']
+#         # audio_file.save('audio.wav')
+#         r = sr.Recognizer()
+#         uploaded_audio=sr.AudioFile(audio_file)
+#         print(uploaded_audio)
+#         with uploaded_audio as source:
+#             r.adjust_for_ambient_noise(source)
+#             audio_data = r.record(source)
+#         try:
+#             text = r.recognize_google(audio_data)
+#             print(text)
+#             text = text.lower()
+#             for loop in symbols_text:
+#                 if loop in text:
+#                     text = replace_str_with_char(loop, symbols_text[loop], text)
+#             print(text)
+#         except Exception as e:
+#             print('could not recognize audio')
+#         print(request.form)
+#         print(request.files)
+#         return request.form
+
+@app.route("/test_javascript_audio_upload", methods=["GET","POST"])
+def java_script_audio():
+    if request.method=="GET":
+        return render_template('index.html')
     else:
-        code_fragment=request.form["code"]
-        output = subprocess.check_output(["python","-c",code_fragment])
-        output = output.decode()
-        output = output.strip()
-        return render_template('output.html', output=output, code_fragment=code_fragment)
+        audio_data=request.files['audio_data']
+        r = sr.Recognizer()
+        uploaded_audio = sr.AudioFile(audio_data)
+        with uploaded_audio as source:
+            r.adjust_for_ambient_noise(source)
+            audio_info = r.record(source)
+        try:
+            text = r.recognize_google(audio_info)
+            text = text.lower()
+            for loop in symbols_text:
+                if loop in text:
+                    text = replace_str_with_char(loop, symbols_text[loop], text)
+            print(text)
+            output = subprocess.check_output(["python", "-c",text])
+            output = output.decode()
+            print(output)
+        except Exception as e:
+            print('could not recognize audio')
+        # audio_data.save('audio.wav')
+        print('file uploaded')
+        return redirect('/')
 
 if __name__=="__main__":
     app.run()
