@@ -75,10 +75,11 @@ def replace_str_with_char(key_word,symbol,spoken_txt):
 #     except Exception as e:
 #         return('could not recognize audio')
 
+#route
 @app.route('/', methods=['GET','POST'])
 def index():
     spoken_txt=""
-    return render_template('test.html', spoken_txt=spoken_txt)
+    return redirect('/test_javascript_audio_upload')
 
 # @app.route("/audioprocessing", methods=['GET','POST'])
 # def audioprocessing():
