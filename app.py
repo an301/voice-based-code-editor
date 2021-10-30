@@ -47,6 +47,7 @@ symbols_text={'open parentheses':'(',
               'plus':'+',
               'minus':'-',
               'multiply':'*',
+              'multiplied by':'*',
               'times':'*',
               'divide':'/',
               'divided by':'/'
@@ -64,73 +65,19 @@ def replace_str_with_char(key_word,symbol,spoken_txt):
     return(spoken_txt)
 
 
-# def audioTranscript():
-#     r = sr.Recognizer()
-#     with sr.Microphone() as source:
-#         r.adjust_for_ambient_noise(source)
-#         audio_data = r.listen(source)
-#     try:
-#         text = r.recognize_google(audio_data)
-#         return(text)
-#     except Exception as e:
-#         return('could not recognize audio')
-
 #route
 @app.route('/', methods=['GET','POST'])
 def index():
     spoken_txt=""
-    return redirect('/test_javascript_audio_upload')
+    return redirect('/audio_test')
 
-# @app.route("/audioprocessing", methods=['GET','POST'])
-# def audioprocessing():
-#     if request.method=='GET':
-#
-#         spoken_txt=audioTranscript()
-#         spoken_txt=spoken_txt.lower()
-#         for loop in symbols_text:
-#                 if loop in spoken_txt:
-#                     spoken_txt=replace_str_with_char(loop,symbols_text[loop],spoken_txt)
-#         return render_template('test.html', spoken_txt=spoken_txt)
-#     else:
-#         code_fragment=request.form["code"]
-#         output = subprocess.check_output(["python","-c",code_fragment])
-#         output = output.decode()
-#         output = output.strip()
-#         return render_template('output.html', output=output, code_fragment=code_fragment)
 
-# @app.route("/test_upload_audio", methods=["GET","POST"])
-# def test_upload_audio():
-#     if request.method=="GET":
-#         return render_template('upload_audio_recording.html')
-#     else:
-#         audio_file=request.files['uploaded_file']
-#         # audio_file.save('audio.wav')
-#         r = sr.Recognizer()
-#         uploaded_audio=sr.AudioFile(audio_file)
-#         print(uploaded_audio)
-#         with uploaded_audio as source:
-#             r.adjust_for_ambient_noise(source)
-#             audio_data = r.record(source)
-#         try:
-#             text = r.recognize_google(audio_data)
-#             print(text)
-#             text = text.lower()
-#             for loop in symbols_text:
-#                 if loop in text:
-#                     text = replace_str_with_char(loop, symbols_text[loop], text)
-#             print(text)
-#         except Exception as e:
-#             print('could not recognize audio')
-#         print(request.form)
-#         print(request.files)
-#         return request.form
-
-@app.route("/test_javascript_audio_upload", methods=["GET","POST"])
-def java_script_audio():
+@app.route("/audio_test", methods=["GET","POST"])
+def audio_test():
     if request.method=="GET":
-        return render_template('index.html')
+        return render_template('audio_test.html')
     else:
-        audio_data=request.files['audio_data']
+        audio_data = request.files['audio_data']
         r = sr.Recognizer()
         uploaded_audio = sr.AudioFile(audio_data)
         with uploaded_audio as source:
@@ -143,14 +90,12 @@ def java_script_audio():
                 if loop in text:
                     text = replace_str_with_char(loop, symbols_text[loop], text)
             print(text)
-            output = subprocess.check_output(["python", "-c",text])
+            output = subprocess.check_output(["python", "-c", text])
             output = output.decode()
-            print(output)
+            return render_template('output.html',output=output,code_fragment=text)
         except Exception as e:
-            print('could not recognize audio')
-        # audio_data.save('audio.wav')
-        print('file uploaded')
-        return redirect('/')
+            return ('could not recognize audio')
+
 
 if __name__=="__main__":
     app.run()

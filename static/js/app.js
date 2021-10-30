@@ -158,6 +158,9 @@ function createDownloadLink(blob) {
           fd.append("audio_data",blob, filename);
           xhr.open("POST","/test_javascript_audio_upload",true);
           xhr.send(fd);
+          window.location("/test")
+
+
     })
     li.appendChild(document.createTextNode (" "))//add a space in between
     li.appendChild(upload)//add the upload link to li
