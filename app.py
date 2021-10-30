@@ -96,7 +96,7 @@ def audio_test():
             output = output.decode()
             return render_template('output.html',output=output,code_fragment=text)
         except Exception as e:
-            return ('could not recognize audio')
+            return render_template('output.html',code_fragment='could not recognize audio',output='')
 
 
 if __name__=="__main__":
