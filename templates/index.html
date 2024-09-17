@@ -202,5 +202,28 @@
             recordingsList.appendChild(li);
         }
     </script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDamqXL-qqh8_Nw8WY4haDkF2SISvGtiVU",
+        authDomain: "voice-based-code-editor.firebaseapp.com",
+        projectId: "voice-based-code-editor",
+        storageBucket: "voice-based-code-editor.appspot.com",
+        messagingSenderId: "225848885454",
+        appId: "1:225848885454:web:f173895f8d6f86078b509f",
+        measurementId: "G-9SCEELQEMJ"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
 </body>
 </html>
