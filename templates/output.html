@@ -16,24 +16,23 @@
         #editor {
             height: 200px;
         }
+        .code-output {
+            color: green;
+            white-space: pre-wrap; /* Preserve formatting */
+            font-family: monospace; /* Use a monospaced font */
+        }
     </style>
 </head>
-
 <body>
 
 <div class="text-center base-page vh-100">
-
-
-
-
-    <h1 id="code-header">code</h1>
+    <h1 id="code-header">Code</h1>
     <div class="container my-auto">
-        <div id="editor" class="">{{code_fragment}}</div>
+        <div id="editor" class="code-output">{{code_fragment}}</div>
     </div>
 
-    <h1 id="output-header">output</h1>
-    <textarea>{{output}}</textarea>
-
+    <h1 id="output-header">Output</h1>
+    <textarea class="form-control code-output" readonly>{{output}}</textarea>
 
     <script src="https://pagecdn.io/lib/ace/1.4.12/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
@@ -42,26 +41,14 @@
         editor.session.setMode("ace/mode/python");
     </script>
 
-
-
-
-
-
-    <!--    <div class="row">-->
-    <!--        <div class="col">-->
-    <!--            <center>-->
-    <!--                <textarea>{{result}}</textarea>-->
-    <!--            </center>-->
-    <!--        </div>-->
-    <!--    </div>-->
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
         integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
         integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
         crossorigin="anonymous"></script>
+
+</div>
 
 </body>
 </html>
