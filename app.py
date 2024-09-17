@@ -77,7 +77,7 @@ def index():
 @app.route("/audio_test", methods=["GET","POST"])
 def audio_test():
     if request.method=="GET":
-        return render_template('audio_test.html')
+        return render_template('index.html')
     else:
         audio_data = request.files['audio_data']
         r = sr.Recognizer()
